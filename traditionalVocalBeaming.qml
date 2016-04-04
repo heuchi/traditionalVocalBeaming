@@ -29,6 +29,8 @@ MuseScore {
 	if (typeof curScore === 'undefined')
 	    Qt.quit();
 	
+	curScore.startCmd();
+
 	var cursor = curScore.newCursor();
 	cursor.rewind(1);
 	
@@ -106,6 +108,8 @@ MuseScore {
 	    }
 	}
 	
+	curScore.endCmd();
+	curScore.doLayout();
 	Qt.quit();
     }
 }
