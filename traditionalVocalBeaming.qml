@@ -1,7 +1,7 @@
 //==============================================
 //  traditional vocal beaming
 //
-//  Copyright (C)2016 Jörn Eichler (heuchi) 
+//  Copyright (C)2016-2019 Jörn Eichler (heuchi)
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 //==============================================
 
 import QtQuick 2.0
-import MuseScore 1.0
+import MuseScore 3.0
 
 MuseScore {
     version:  "1.0"
@@ -109,7 +109,7 @@ MuseScore {
 	}
 	
 	curScore.endCmd();
-	curScore.doLayout();
+	//curScore.doLayout();
 	Qt.quit();
     }
 }
