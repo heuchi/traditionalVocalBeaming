@@ -2,6 +2,7 @@
 //  traditional vocal beaming
 //
 //  Copyright (C)2016-2019 Jörn Eichler (heuchi)
+//  Copyright (C)2022-2023 Joachim Schmitz (Jojo-Schmitz)
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -22,12 +23,19 @@ import MuseScore 3.0
 
 MuseScore {
     version:  "1.0"
+    id: traditionalVocalBeaming
     description: "This plugin creates traditional vocal beams, i.e. beams only on melismas."
     menuPath: "Plugins.Traditional Vocal Beaming"
 
+    Component.onCompleted : {
+        if (mscoreMajorVersion >= 4) {
+            traditionalVocalBeaming.title = "Traditional Vocal Beaming";
+        }
+    }
+
     onRun: {
 	if (typeof curScore === 'undefined')
-	    Qt.quit();
+	    quit();
 	
 	curScore.startCmd();
 
@@ -46,7 +54,7 @@ MuseScore {
 	} else {
 	    startStaff = cursor.staffIdx;
 	    cursor.rewind(2);
-	    if (cursor.tick == 0) {
+	    if (cursor.tick === 0) {
 		// this happens when the selection includes
 		// the last measure of the score.
 		// rewind(2) goes behind the last segment (where
@@ -73,13 +81,13 @@ MuseScore {
 		hasLyrics = false;
 		
 		while (cursor.segment && (fullScore || cursor.tick < endTick)) {
-		    if (cursor.element && cursor.element.type == Element.CHORD) {
+		    if (cursor.element && cursor.element.type === Element.CHORD) {
 			var lyrics = cursor.element.lyrics;
 
-			if (lyrics.length == 0) {
+			if (lyrics.length === 0) {
 			    if (lastChord != null && hasLyrics) {
 				// set last chord to "BEGIN", if it existed
-				lastChord.beamMode = 1;
+				lastChord.beamMode = Beam.BEGIN;
 			    }
 			    // don't change anything for this chord
 			    lastChord = null;
@@ -88,7 +96,7 @@ MuseScore {
 			    // found lyrics
 			    if (lastChord != null) {
 				// set last chord to "BEGIN", if it existed
-				lastChord.beamMode = 1;
+				lastChord.beamMode = Beam.BEGIN;
 			    }
 			    // remember this chord
 			    lastChord = cursor.element;
@@ -96,20 +104,20 @@ MuseScore {
 
 			if (hasLyrics) {
 			    // reset beaming to auto for current chord
-			    cursor.element.beamMode = 0;
+			    cursor.element.beamMode = Beam.AUTO;
 			}
 		    }
 		    cursor.next();
 		}
 		if (lastChord != null) {
 		    // set last chord to "NONE", if it existed
-		    lastChord.beamMode = 4;
+		    lastChord.beamMode = Beam.NONE;
 		}
 	    }
 	}
 	
 	curScore.endCmd();
 	//curScore.doLayout();
-	Qt.quit();
+	quit();
     }
 }
