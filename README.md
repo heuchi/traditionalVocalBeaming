@@ -1,7 +1,7 @@
 traditionalVocalBeaming
 =======================
 
-A plugin for MuseScore version 2.x to automatically set beaming
+A plugin for MuseScore versions 2.x, 3.x and 4.x to automatically set beaming
 according to syllables
 
 This plugin sets the beaming mode of notes in vocal parts to reflect
