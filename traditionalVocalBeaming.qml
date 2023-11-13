@@ -35,7 +35,7 @@ MuseScore {
 
     onRun: {
 	if (typeof curScore === 'undefined')
-	    quit();
+	    (typeof(quit) === 'undefined' ? Qt.quit : quit)()
 	
 	curScore.startCmd();
 
@@ -118,6 +118,6 @@ MuseScore {
 	
 	curScore.endCmd();
 	//curScore.doLayout();
-	quit();
+	(typeof(quit) === 'undefined' ? Qt.quit : quit)()
     }
 }
