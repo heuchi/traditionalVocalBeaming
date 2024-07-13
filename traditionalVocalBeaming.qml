@@ -26,6 +26,7 @@ MuseScore {
     id: traditionalVocalBeaming
     description: "This plugin creates traditional vocal beams, i.e. beams only on melismas."
     menuPath: "Plugins.Traditional Vocal Beaming"
+    //4.4 title: "Traditional Vocal Beaming"
 
     Component.onCompleted : {
         if (mscoreMajorVersion >= 4) {
